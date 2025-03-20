@@ -9,6 +9,44 @@ app = Dash(__name__, external_stylesheets=[
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ])
 
+# Custom CSS for dropdown text color
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>COVID-19 Dashboard</title>
+        {%favicon%}
+        {%css%}
+        <style>
+            /* Fix dropdown text color */
+            .Select-value-label, .Select-option {
+                color: black !important;
+                font-weight: 600 !important;
+            }
+
+            /* Fix dropdown background */
+            .Select-menu-outer {
+                background-color: white !important;
+            }
+
+            /* Fix dropdown hover state */
+            .Select-option.is-focused {
+                background-color: #deebff !important;
+            }
+        </style>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
 # Memory-efficient data loading function
 def load_data():
     # Only load necessary columns to save memory
@@ -113,8 +151,8 @@ app.layout = html.Div(
                             options=[{"label": country, "value": country} for country in countries],
                             value="United States",
                             style={
-                                'backgroundColor': 'rgba(15, 52, 96, 0.9)',
-                                'color': 'white'
+                                'color': 'black',  # Black text for dropdown
+                                'fontWeight': '600'  # Bold text
                             }
                         ),
                     ]),
@@ -136,8 +174,8 @@ app.layout = html.Div(
                             ],
                             value="total_cases",
                             style={
-                                'backgroundColor': 'rgba(15, 52, 96, 0.9)',
-                                'color': 'white'
+                                'color': 'black',  # Black text for dropdown
+                                'fontWeight': '600'  # Bold text
                             }
                         ),
                     ]),
