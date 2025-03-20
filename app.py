@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output, callback_context
 
 # Load and process the data
-df = pd.read_csv('owid-covid-data.csv')
+df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
 df["date"] = pd.to_datetime(df["date"])
 df = df.sort_values("date")
 df["total_cases"] = df["total_cases"].fillna(0)
