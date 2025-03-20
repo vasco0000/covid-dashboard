@@ -17,7 +17,7 @@ def load_data():
     # Load data with optimized dtypes
     dtype_dict = {
         'location': 'category',
-       'total_cases': 'float32',
+        'total_cases': 'float32',
         'new_cases': 'float32'
     }
 
@@ -51,7 +51,7 @@ countries = get_countries(df)
 # Force garbage collection
 gc.collect()
 
-# App layout with fixed z-index management and improved text contrast
+# App layout with improved text contrast
 app.layout = html.Div(
     style={
         'background': 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
@@ -80,7 +80,7 @@ app.layout = html.Div(
         ]),
 
         # Main content container
-       html.Div(style={
+        html.Div(style={
             'maxWidth': '1200px',
             'margin': '0 auto',
             'display': 'flex',
@@ -93,7 +93,7 @@ app.layout = html.Div(
                 'borderRadius': '10px',
                 'padding': '20px',
                 'boxShadow': '0 4px 12px rgba(0, 0, 0, 0.3)',
-           }, children=[
+            }, children=[
                 # Country and metric controls
                 html.Div(style={
                     'display': 'grid',
@@ -103,27 +103,26 @@ app.layout = html.Div(
                     # Country selection
                     html.Div([
                         html.Label("Country", style={
-                            'marginBottom': '8px', 
+                            'marginBottom': '8px',
                             'display': 'block',
                             'color': '#ffffff',  # Brighter label
                             'fontWeight': '600'  # Bolder text
-                       }),
+                        }),
                         dcc.Dropdown(
                             id="country-dropdown",
                             options=[{"label": country, "value": country} for country in countries],
                             value="United States",
                             style={
                                 'backgroundColor': 'rgba(15, 52, 96, 0.9)',
-                               'color': 'white'
-                            },
-                            className='dropdown-high-z'
+                                'color': 'white'
+                            }
                         ),
                     ]),
 
                     # Metric selection
                     html.Div([
                         html.Label("Metric", style={
-                            'marginBottom': '8px', 
+                            'marginBottom': '8px',
                             'display': 'block',
                             'color': '#ffffff',  # Brighter label
                             'fontWeight': '600'  # Bolder text
@@ -134,22 +133,21 @@ app.layout = html.Div(
                                 {"label": "Total Cases", "value": "total_cases"},
                                 {"label": "New Cases", "value": "new_cases"},
                                 {"label": "New Cases (7-day Avg)", "value": "new_cases_avg"}
-                           ],
+                            ],
                             value="total_cases",
                             style={
                                 'backgroundColor': 'rgba(15, 52, 96, 0.9)',
                                 'color': 'white'
-                            },
-                            className='dropdown-high-z'
+                            }
                         ),
                     ]),
                 ]),
 
                 # Date range and buttons
-               html.Div(style={'marginTop': '20px'}, children=[
-                   html.Label("Date Range", style={
-                        'marginBottom': '8px', 
-                       'display': 'block',
+                html.Div(style={'marginTop': '20px'}, children=[
+                    html.Label("Date Range", style={
+                        'marginBottom': '8px',
+                        'display': 'block',
                         'color': '#ffffff',  # Brighter label
                         'fontWeight': '600'  # Bolder text
                     }),
@@ -157,7 +155,6 @@ app.layout = html.Div(
                     # Date picker container
                     html.Div(style={
                         'position': 'relative',
-                        'zIndex': '900',
                         'marginBottom': '15px'
                     }, children=[
                         dcc.DatePickerRange(
@@ -166,15 +163,14 @@ app.layout = html.Div(
                             max_date_allowed=df["date"].max(),
                             initial_visible_month=df["date"].max(),
                             start_date=df["date"].min().strftime('%Y-%m-%d'),
-                           end_date=df["date"].max().strftime('%Y-%m-%d'),
+                            end_date=df["date"].max().strftime('%Y-%m-%d'),
                             display_format='YYYY-MM-DD',
-                           style={'width': '100%'},
-                          className='date-picker-high-z'
+                            style={'width': '100%'}
                         ),
                     ]),
 
                     # Wave buttons
-                   html.Div(style={
+                    html.Div(style={
                         'display': 'flex',
                         'gap': '10px',
                         'flexWrap': 'wrap',
@@ -183,23 +179,21 @@ app.layout = html.Div(
                         html.Button(
                             "First Wave",
                             id="first-wave-btn",
-                            className='wave-btn',
                             style={
                                 'backgroundColor': 'rgba(0, 212, 255, 0.2)',
-                               'border': '1px solid rgba(0, 212, 255, 0.5)',
+                                'border': '1px solid rgba(0, 212, 255, 0.5)',
                                 'borderRadius': '8px',
                                 'padding': '8px 12px',
-                              'cursor': 'pointer',
+                                'cursor': 'pointer',
                                 'flex': '1',
                                 'minWidth': '120px',
                                 'color': 'white',
-                               'fontWeight': '600'  # Bolder text
-                           }
+                                'fontWeight': '600'  # Bolder text
+                            }
                         ),
                         html.Button(
-                           "Delta",
+                            "Delta",
                             id="delta-wave-btn",
-                          className='wave-btn',
                             style={
                                 'backgroundColor': 'rgba(0, 212, 255, 0.2)',
                                 'border': '1px solid rgba(0, 212, 255, 0.5)',
@@ -214,29 +208,28 @@ app.layout = html.Div(
                         ),
                         html.Button(
                             "Omicron",
-                           id="omicron-wave-btn",
-                            className='wave-btn',
+                            id="omicron-wave-btn",
                             style={
                                 'backgroundColor': 'rgba(0, 212, 255, 0.2)',
                                 'border': '1px solid rgba(0, 212, 255, 0.5)',
                                 'borderRadius': '8px',
                                 'padding': '8px 12px',
-                             'cursor': 'pointer',
+                                'cursor': 'pointer',
                                 'flex': '1',
                                 'minWidth': '120px',
-                               'color': 'white',
+                                'color': 'white',
                                 'fontWeight': '600'  # Bolder text
                             }
                         ),
                     ]),
-               ]),
+                ]),
 
-              # Display options
+                # Display options
                 html.Div(style={
                     'marginTop': '20px',
                     'display': 'flex',
                     'flexWrap': 'wrap',
-                   'gap': '20px'
+                    'gap': '20px'
                 }, children=[
                     # Annotations toggle
                     html.Div(style={'display': 'flex', 'alignItems': 'center'}, children=[
@@ -251,14 +244,14 @@ app.layout = html.Div(
                             value=['show'],
                             inline=True,
                             style={'color': 'white'}  # Ensure checkbox text is visible
-                       )
+                        )
                     ]),
 
                     # Data points toggle
                     html.Div(style={'display': 'flex', 'alignItems': 'center'}, children=[
-                       html.Label("Show Data Points", style={
+                        html.Label("Show Data Points", style={
                             'marginRight': '10px',
-                          'color': '#ffffff',  # Brighter label
+                            'color': '#ffffff',  # Brighter label
                             'fontWeight': '600'  # Bolder text
                         }),
                         dcc.Checklist(
@@ -268,22 +261,22 @@ app.layout = html.Div(
                             inline=True,
                             style={'color': 'white'}  # Ensure checkbox text is visible
                         )
-                   ]),
+                    ]),
 
                     # Log scale toggle
                     html.Div(style={'display': 'flex', 'alignItems': 'center'}, children=[
                         html.Label("Use Log Scale", style={
-                           'marginRight': '10px',
+                            'marginRight': '10px',
                             'color': '#ffffff',  # Brighter label
-                           'fontWeight': '600'  # Bolder text
-                      }),
+                            'fontWeight': '600'  # Bolder text
+                        }),
                         dcc.Checklist(
                             id='toggle-log-scale',
                             options=[{'label': '', 'value': 'log'}],
                             value=[],
                             inline=True,
                             style={'color': 'white'}  # Ensure checkbox text is visible
-                       )
+                        )
                     ]),
                 ]),
             ]),
@@ -291,11 +284,10 @@ app.layout = html.Div(
             # Graph container
             html.Div(style={
                 'backgroundColor': 'rgba(22, 33, 62, 0.9)',
-               'borderRadius': '10px',
-               'padding': '20px',
+                'borderRadius': '10px',
+                'padding': '20px',
                 'boxShadow': '0 4px 12px rgba(0, 0, 0, 0.3)',
-               'position': 'relative',
-                'zIndex': '1'
+                'position': 'relative'
             }, children=[
                 dcc.Loading(
                     id="loading-graph",
@@ -313,7 +305,7 @@ app.layout = html.Div(
                             )
                         ])
                     ]
-               )
+                )
             ]),
 
             # Footer
@@ -322,155 +314,17 @@ app.layout = html.Div(
                 'fontSize': '14px',  # Slightly larger
                 'color': '#ffffff',  # Brighter text
                 'marginTop': '20px',
-               'fontWeight': '500'  # Semi-bold
+                'fontWeight': '500'  # Semi-bold
             }, children=[
                 html.P([
                     html.I(className="fas fa-info-circle", style={'marginRight': '8px'}),
-                   "Data Source: Our World in Data • Last updated: ",
+                    "Data Source: Our World in Data • Last updated: ",
                     html.Span(df["date"].max().strftime('%Y-%m-%d'))
-               ])
+                ])
             ])
         ]),
     ]
 )
-
-# CSS for better text visibility
-app.index_string = '''
-<!DOCTYPE html>
-<html>
-    <head>
-        {%metas%}
-       <title>COVID-19 Dashboard</title>
-        {%favicon%}
-       {%css%}
-        <style>
-            /* Base styles */
-           body {
-                margin: 0;
-                padding: 0;
-                font-family: 'Roboto', sans-serif;
-                overflow-x: hidden;
-            }
-
-            /* Z-index management */
-            .dropdown-high-z .Select-menu-outer {
-               z-index: 999 !important;
-            }
-
-            .dropdown-high-z .Select-control:focus,
-            .dropdown-high-z .is-open .Select-control {
-                z-index: 999 !important;
-                position: relative;
-           }
-
-            .date-picker-high-z {
-                z-index: 900 !important;
-            }
-
-            #dash-container div[data-dash-is-loading="true"] {
-               z-index: 998 !important;
-            }
-
-            .DateRangePicker_picker,
-            .SingleDatePicker_picker {
-                z-index: 999 !important;
-           }
-
-            /* Styling fixes */
-            .Select-control, .Select-menu-outer {
-                background-color: rgba(15, 52, 96, 0.9) !important;
-                color: white !important;
-               border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            }
-
-            .Select-value-label, .Select-option {
-                color: white !important;
-                font-weight: 500 !important;
-            }
-
-            .Select-option.is-focused {
-                background-color: rgba(0, 212, 255, 0.3) !important;
-            }
-
-            /* Date picker styling */
-            .DateInput, .DateInput_input {
-                background-color: rgba(15, 52, 96, 0.9) !important;
-               color: white !important;
-                font-size: 14px !important;
-               font-weight: 500 !important;
-           }
-
-            .SingleDatePickerInput, .DateRangePickerInput {
-                background-color: transparent !important;
-               border: 1px solid rgba(255, 255, 255, 0.2) !important;
-               border-radius: 4px !important;
-            }
-
-            .DayPicker {
-                background-color: rgba(22, 33, 62, 0.95) !important;
-            }
-
-            .CalendarMonth_caption {
-                color: white !important;
-                font-weight: bold !important;
-            }
-
-            .CalendarDay {
-                background-color: rgba(15, 52, 96, 0.8) !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                color: white !important;
-                      .CalendarDay__selected {
-                background-color: #00d4ff !important;
-                color: #16213e !important;
-               font-weight: bold !important;
-            }
-
-            /* Button styling */
-            .wave-btn:hover {
-                background-color: rgba(0, 212, 255, 0.5) !important;
-               transform: scale(1.05);
-               z-index: 10;
-                position: relative;
-            }
-
-            /* Loading animation */
-            ._dash-loading {
-                background-color: rgba(22, 33, 62, 0.7);
-               z-index: 999 !important;
-           }
-
-           /* Focus elements should be on top */
-            *:focus {
-                z-index: 999 !important;
-                position: relative;
-            }
-           
-           /* Improved checkbox visibility */
-            .js-plotly-plot .plotly, .js-plotly-plot .plotly div {
-                font-family: 'Roboto', sans-serif !important;
-            }
-            
-            /* Graph text improvements */
-            .gtitle, .xtitle, .ytitle {
-                font-weight: bold !important;
-               font-size: 14px !important;
-            }
-            
-            .xtick text, .ytick text {
-                font-weight: 500 !important;
-            }
-        </style>
-    </head>
-    <body>
-        {%app_entry%}
-        <footer>
-            {%config%}
-            {%scripts%}
-            {%renderer%}
-        </footer>
-    </body>
-</html>
-'''
 
 # Wave button callback
 @app.callback(
@@ -510,19 +364,19 @@ def update_date_range(first_wave, delta_wave, omicron_wave):
 )
 def update_graph(country, metric, start_date, end_date, show_annotations, show_markers, use_log_scale):
     try:
-        # Basic error handling for inputs
+        # Basic error handling for missing inputs
         if not country or not metric:
-           # Default empty figure
+            # Default empty figure
             fig = go.Figure()
             fig.update_layout(
-               title="Please select country and metric",
+                title="Please select country and metric",
                 plot_bgcolor='rgba(22, 33, 62, 0.5)',
                 paper_bgcolor='rgba(0, 0, 0, 0)',
                 font=dict(color='white', size=14)  # Larger, brighter font
-           )
+            )
             return fig
 
-        # Convert string dates to datetime if strings
+        # Convert string dates to datetime if they're strings
         if isinstance(start_date, str):
             start_date = pd.to_datetime(start_date)
         if isinstance(end_date, str):
@@ -537,7 +391,7 @@ def update_graph(country, metric, start_date, end_date, show_annotations, show_m
         gc.collect()
 
         # Check if we have data
-       if filtered_df.empty:
+        if filtered_df.empty:
             fig = go.Figure()
             fig.update_layout(
                 title=f"No data available for {country} in selected date range",
@@ -547,11 +401,11 @@ def update_graph(country, metric, start_date, end_date, show_annotations, show_m
             )
             return fig
 
-       # Create the basic figure
+        # Create the basic figure
         fig = go.Figure()
 
         # Add the main trace - Keep this simple
-       mode = 'lines+markers' if show_markers and 'show' in show_markers else 'lines'
+        mode = 'lines+markers' if show_markers and 'show' in show_markers else 'lines'
         fig.add_trace(go.Scatter(
             x=filtered_df["date"],
             y=filtered_df[metric],
@@ -566,15 +420,15 @@ def update_graph(country, metric, start_date, end_date, show_annotations, show_m
             title=f"{metric.replace('_', ' ').title()} in {country}",
             xaxis_title="Date",
             yaxis_title=metric.replace('_', ' ').title(),
-            yaxis_type="log" if se_log_scale and 'log' in use_log_scale else "linear",
-           plot_bgcolor='rgba(22, 33, 62, 0.5)',
+            yaxis_type="log" if use_log_scale and 'log' in use_log_scale else "linear",
+            plot_bgcolor='rgba(22, 33, 62, 0.5)',
             paper_bgcolor='rgba(0, 0, 0, 0)',
             font=dict(color='white', size=14),  # Larger, brighter font
-           xaxis=dict(
-               tickangle=45,
+            xaxis=dict(
+                tickangle=45,
                 gridcolor='rgba(255, 255, 255, 0.2)',  # Brighter grid
-               tickfont=dict(color='white', size=12)  # Brighter tick labels
-           ),
+                tickfont=dict(color='white', size=12)  # Brighter tick labels
+            ),
             yaxis=dict(
                 gridcolor='rgba(255, 255, 255, 0.2)',  # Brighter grid
                 tickformat=".2s",
@@ -585,21 +439,21 @@ def update_graph(country, metric, start_date, end_date, show_annotations, show_m
             hoverlabel=dict(
                 bgcolor="rgba(22, 33, 62, 0.9)",
                 font_size=14,
-               font_color="white"
+                font_color="white"
             )
         )
 
-        # Add annotations if enabled - if we have a reasonable amount of data points
+        # Add annotations if enabled - only if we have a reasonable amount of data points
         if show_annotations and 'show' in show_annotations and country == "United States" and len(filtered_df) < 500:
             # Omicron wave annotation
             omicron_date = pd.Timestamp("2022-01-10")
             if start_date <= omicron_date <= end_date:
                 omicron_df = filtered_df[filtered_df["date"] >= omicron_date].head(1)
-               if not omicron_df.empty:
+                if not omicron_df.empty:
                     fig.add_annotation(
                         x=omicron_df["date"].iloc[0],
                         y=omicron_df[metric].iloc[0],
-                       text="Omicron Wave",
+                        text="Omicron Wave",
                         showarrow=True,
                         arrowhead=2,
                         arrowcolor="#ff4d4d",
@@ -622,8 +476,8 @@ def update_graph(country, metric, start_date, end_date, show_annotations, show_m
                         showarrow=True,
                         arrowhead=2,
                         arrowcolor="#ff9900",
-                       ax=40,
-                       ay=-40,
+                        ax=40,
+                        ay=-40,
                         font=dict(color="white", size=14),  # Brighter, larger font
                         bgcolor="rgba(255, 153, 0, 0.7)",
                         bordercolor="#ff9900"
